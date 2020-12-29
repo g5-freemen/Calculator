@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url("../../fonts/oswald.ttf");
+}
+  
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background:  #e5e5e5;
+    font-family: 'Oswald';
+}

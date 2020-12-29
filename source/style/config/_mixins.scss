@@ -1,0 +1,17 @@
+// @mixin flexible($jCont:center, $aCont:center, $direct:row, $wrap:wrap) {
+//     display: flex;
+//     flex-direction: $direct;
+//     justify-content: $jCont;
+//     align-content: $aCont;
+//     flex-wrap: $wrap;
+//     }
+
+// @mixin flexibles($W, $H, $jCont:center, $aCont:center, $direct:row, $wrap:wrap) {
+//     display: flex;
+//     width: $W;
+//     height: $H;
+//     flex-direction: $direct;
+//     flex-wrap: $wrap;
+//     justify-content: $jCont;
+//     align-content: $aCont;
+//     }

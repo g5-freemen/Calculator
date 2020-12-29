@@ -1,0 +1,120 @@
+.calc-box {
+    display: flex;
+    flex-direction: column;
+    width: $calc-width;
+    height: $calc-height;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    background: #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0.06 * $calc-width;
+}
+
+.calc-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 95%;
+    height: 24%;
+    margin-bottom: 5%;
+}
+
+.calc-display--result {
+    font-weight: 500;
+    font-size: $fz-big;
+    color: #F2F2F4;
+    opacity: 0.2;
+}
+
+.calc-display--operation {
+    font-weight: 500;
+    font-size: $fz-medium;
+    font-feature-settings: 'ordn' on;
+    color: rgba(114, 138, 183, 0.65);
+}
+
+.calc-display--input {
+    font-weight: 500;
+    font-size: $fz-big;
+    color: #F2F2F4;
+}
+
+
+.calc-pad {
+    display: flex;
+    flex-direction: column;
+    width: $calc-width;
+    height: $calcPad-height;
+    padding: 0.05*$calcPad-height 0;
+    background: #f0f0f3;
+    border-radius: 0.06 * $calc-width;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calc-pad--nonsense {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0.29 * $calc-width;
+    height: 0.01 * $calc-height;
+    background: #EEEEEE;
+    box-shadow: inset -1px -1px 1px rgba(255, 255, 255, 0.7), inset 1px 1px 2px rgba(174, 174, 192, 0.2);
+    border-radius: 0.06 * $calc-width;
+}
+
+.calc-pad--nonsense-inside {
+    width: 0.28 * $calc-width;
+    height: 0.007 * $calc-height;
+    background: #F0F0F3;
+    box-shadow: -1px -1px 3px #FFFFFF, 1.5px 1.5px 3px rgba(174, 174, 192, 0.4);
+    border-radius: 0.06 * $calc-width;
+}
+
+.calc-pad--row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 0.82 * $calc-width;
+    height: $calcPadRow-height;
+}
+
+.calc-pad--button, .buttonDbl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $calcPadRow-height;
+    height: $calcPadRow-height;
+    background: #F0F0F3;
+    border: none;
+    box-shadow: -10px -10px 24px rgba(255, 255, 255, 0.6), 10px 10px 24px rgba(174, 174, 192, 0.2);
+    border-radius: 0.23 * $calcPadRow-height;
+    font-weight: 500;
+    font-size: 0.5 * $calcPadRow-height;
+    color: #898989;
+    outline: none;
+    cursor: pointer;
+}
+
+.buttonDbl {
+    width: 2.286 * $calcPadRow-height;
+    padding-left: 0.4 * $calcPadRow-height;
+    justify-content: flex-start;
+}
+
+.colorDigit {
+    color: #728AB7;
+}
+
+.colorOper {
+    color: #745FF2;
+    font-size: 0.7 * $calcPadRow-height;
+}
+
+.colorEqually {
+    background: #2DD3C5;
+    color: #F0F0F3;
+    box-shadow: -10px -10px 24px #FFFFFF, 10px 10px 24px rgba(174, 174, 192, 0.52);
+}
