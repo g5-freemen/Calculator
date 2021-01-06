@@ -85,8 +85,6 @@ function Calculator(previousOperandText, currentOperandText, result) {
     }
 
     this.chooseOperation = function (operation) {
-        if (!this.currentOperand) this.currentOperand = '0';
-
         if (this.previousOperand) calculator.compute();
 
         if (result.innerText) {
@@ -111,8 +109,11 @@ function Calculator(previousOperandText, currentOperandText, result) {
         if (this.operation == '÷') computation = prev / current;
 
         this.resulting = computation;
+        console.log(this.resulting);
+
         this.operation = undefined;
         this.previousOperand = '';
+        this.lastOperation = 0;
     };
 
     this.updateDisplay = function () {
@@ -154,10 +155,10 @@ document.addEventListener('keydown', event => { // keyboard listener
 
 //#region (mouse) Clicks Listener
 calcPad.addEventListener('click', event => { // mouse clicks listener
-    let eventValue = event.target.value,
-        eventBGcolor = event.target.style.background;
+    let eventValue = event.target.value;
 
     if (event.target.className.includes('button')) { // changes BG color of pressed button for 99 ms
+        let eventBGcolor = event.target.style.background;
         event.target.style.background = '#bbb';
         setTimeout(() => event.target.style.background = eventBGcolor, 99);
     } else return;

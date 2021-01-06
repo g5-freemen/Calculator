@@ -1,17 +1,12 @@
-// @mixin flexible($jCont:center, $aCont:center, $direct:row, $wrap:wrap) {
-//     display: flex;
-//     flex-direction: $direct;
-//     justify-content: $jCont;
-//     align-content: $aCont;
-//     flex-wrap: $wrap;
-//     }
+// Figures absolute position
+@mixin createFigure($width, $height, $left, $top) {
+    position: absolute;
+  
+    width: $width;
+    height: $height;
+    left: $left;
+    top: $top;
 
-// @mixin flexibles($W, $H, $jCont:center, $aCont:center, $direct:row, $wrap:wrap) {
-//     display: flex;
-//     width: $W;
-//     height: $H;
-//     flex-direction: $direct;
-//     flex-wrap: $wrap;
-//     justify-content: $jCont;
-//     align-content: $aCont;
-//     }
+    box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+    border-radius: 2vmin;
+  }

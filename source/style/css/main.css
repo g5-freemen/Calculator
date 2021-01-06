@@ -347,9 +347,8 @@ template {
 }
 
 .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
@@ -364,8 +363,60 @@ template {
   top: 0;
   bottom: 0;
   width: 100%;
-  background: #e5e5e5;
   font-family: 'Oswald';
+  background: #F0F0F3;
+  background-image: url(../../img/dots-rectangle.svg), url(../../img/dots-rectangle.svg);
+  background-size: 8.1vw 18.6vh, 8.1vw 18.6vh;
+  background-repeat: no-repeat;
+  background-position: 34vw 10.5vh, 59.1vw 57.7vh;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.wrapper__rectangle {
+  position: absolute;
+  width: 13.6vw;
+  height: 15.504vw;
+  left: 7vw;
+  top: 18.1vh;
+  -webkit-box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+          box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+  border-radius: 2vmin;
+}
+
+.wrapper__square {
+  position: absolute;
+  width: 18.75vw;
+  height: 18.75vw;
+  left: 72vw;
+  top: 9.6vh;
+  -webkit-box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+          box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+  border-radius: 2vmin;
+}
+
+.wrapper__round--small {
+  position: absolute;
+  width: 20.66vh;
+  height: 20.66vh;
+  left: 78vw;
+  top: 69.1vh;
+  -webkit-box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+          box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+  border-radius: 2vmin;
+  border-radius: 50%;
+}
+
+.wrapper__round--big {
+  position: absolute;
+  width: 32.3vh;
+  height: 32.3vh;
+  left: 7vw;
+  top: 75.3vh;
+  -webkit-box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+          box-shadow: -1.5vmin -1.5vmin 3vmin #FFFFFF, 1.5vmin 1.5vmin 3vmin rgba(174, 174, 192, 0.4);
+  border-radius: 2vmin;
+  border-radius: 50%;
 }
 
 .calc-box {
@@ -389,6 +440,7 @@ template {
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2.55vh;
+  z-index: 9;
 }
 
 .calc-display {

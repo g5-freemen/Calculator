@@ -4,7 +4,7 @@
 }
   
 .wrapper {
-    display: flex;
+    display: grid;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
@@ -12,6 +12,31 @@
     top: 0;
     bottom: 0;
     width: 100%;
-    background:  #e5e5e5;
     font-family: 'Oswald';
+
+    background: #F0F0F3;
+    background-image: url(../../img/dots-rectangle.svg), url(../../img/dots-rectangle.svg);
+    background-size: 8.1vw 18.6vh, 8.1vw 18.6vh;
+    background-repeat: no-repeat;
+    background-position: 34vw 10.5vh, 59.1vw 57.7vh;
+    overflow: hidden;
+    z-index: 0;
+
+    &__rectangle {
+        @include createFigure($rectangleSizeX, $rectangleSizeY, $rectangleX, $rectangleY);
+      }
+    
+    &__square{
+        @include createFigure($squareSize, $squareSize, $squareX, $squareY);
+    }
+    
+    &__round--small {
+        @include createFigure($roundSizeSmall, $roundSizeSmall, $roundSmallX, $roundSmallY);
+        border-radius: 50%;
+    }
+
+    &__round--big {
+        @include createFigure($roundSizeBig, $roundSizeBig, $rectangleX, $roundBigY);
+        border-radius: 50%;
+    }
 }

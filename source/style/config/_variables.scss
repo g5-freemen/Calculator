@@ -11,3 +11,20 @@ $calcPadRow-height: 0.13 * $calcPad-height;
 $fz-big: 0.075 * $calc-height;
 $fz-medium: 0.5625 * $fz-big;
 $fz-medium: 0.75 * $fz-big;
+
+// geometry figures
+$rectangleSizeX: 13.6vw ;
+$rectangleSizeY: $rectangleSizeX * 1.14 ;
+$rectangleX: 7vw ;
+$rectangleY: 18.1vh ;
+
+$squareSize: 18.75vw ;
+$squareX: 72vw ;
+$squareY: 9.6vh ;
+
+$roundSizeBig: 32.3vh;
+$roundBigY: 75.3vh;
+
+$roundSizeSmall: 20.66vh;
+$roundSmallX: 78vw;
+$roundSmallY: 69.1vh;
