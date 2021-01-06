@@ -91,7 +91,6 @@ function Calculator(previousOperandText, currentOperandText, result) {
 
         if (result.innerText) {
             this.previousOperand = result.innerText + operation;
-            this.previousOperandText.innerText = this.previousOperand;
         } else {
             this.previousOperand = this.currentOperand + operation;
         }
