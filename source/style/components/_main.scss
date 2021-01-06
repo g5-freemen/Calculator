@@ -13,34 +13,30 @@
 
 .calc-display {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
     align-items: flex-end;
     width: 95%;
     height: 24%;
     margin-bottom: 5%;
 }
 
-.calc-display--result {
-    font-weight: 500;
-    font-size: $fz-big;
+.calc-display--result, .calc-display--operation, .calc-display--input {
+    display: flex;
+    width: fit-content;
     color: #F2F2F4;
+    font-size: $fz-big;
+    font-weight: 500;
+}
+
+.calc-display--result {
     opacity: 0.2;
 }
 
 .calc-display--operation {
-    font-weight: 500;
     font-size: $fz-medium;
-    font-feature-settings: 'ordn' on;
     color: rgba(114, 138, 183, 0.65);
 }
-
-.calc-display--input {
-    font-weight: 500;
-    font-size: $fz-big;
-    color: #F2F2F4;
-}
-
 
 .calc-pad {
     display: flex;

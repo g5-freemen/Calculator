@@ -1,3 +1,13 @@
 .calc-pad--button:hover, .calc-pad--buttonDbl:hover {
     transform: scale(1.15);
     }
+
+.calc-display--input {
+    animation: flash 1.5s infinite ease;
+}
+
+@keyframes flash {
+    50% {
+        opacity: 0.3;
+        }
+}

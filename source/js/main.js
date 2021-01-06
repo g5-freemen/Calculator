@@ -1,113 +1,180 @@
-let displayInput = document.querySelector('.calc-display--input'),
-    displayOperation = document.querySelector('.calc-display--operation'),
-    displayResult = document.querySelector('.calc-display--result'),
-    calcPad = document.querySelector('.calc-pad'),
-    input = '',
-    inputPrev = '',
-    operation = '',
-    operationValue = '',
-    operationLastPressed = false,
-    result = '';
-const ResultFontSize = Number.parseInt( document.defaultView.getComputedStyle(displayResult).fontSize );
-const OperationFontSize = Number.parseInt( document.defaultView.getComputedStyle(displayOperation).fontSize );
+const result = document.querySelector('.calc-display--result');
+const previousOperandText = document.querySelector('.calc-display--operation');
+const currentOperandText = document.querySelector('.calc-display--input');
+const calcPad = document.querySelector('.calc-pad');
 
-function showDisplay() {
-    if (!input) {displayInput.innerHTML = '0';}
-    else {displayInput.innerHTML = input;}
+const ResultFontSize = parseFloat(document.defaultView.getComputedStyle(result).fontSize);
+const PrevFontSize = parseFloat(document.defaultView.getComputedStyle(previousOperandText).fontSize);
+const InputFontSize = parseFloat(document.defaultView.getComputedStyle(currentOperandText).fontSize);
 
-    if (!result) {displayOperation.innerHTML = inputPrev.toString() + operationValue;}
-    else {displayOperation.innerHTML = inputPrev.toString() + operationValue + input;}
+const maxDigits = 10;
 
-    if ( result && 0 > Number.parseFloat(result) - Number.parseInt(result) < 1 ) {
-        if ( result.toString().length > 13 ) {
-            result = +result.toString().slice(0,12);
+//#region Functions
+function Calculator(previousOperandText, currentOperandText, result) {
+    this.previousOperandText = previousOperandText;
+    this.currentOperandText = currentOperandText;
+    this.result = result;
+
+    this.currentOperand = '';
+    this.previousOperand = '';
+    this.operation = undefined;
+    this.resulting = '';
+    this.exspression = '';
+
+    this.showResult = function () {
+        if (!this.currentOperand) return;
+        this.previousOperandText.innerText = `${this.expression}${this.currentOperand} `;
+        this.currentOperandText.innerText = '';
+        this.result.innerText = this.resulting;
+        this.currentOperand = '';
+
+        function checkWidthOverflow(place, fz) { // check overflow & make font smaller if needed
+            place.style.fontSize = fz + 'px';
+            let CurrentFontSize = fz;
+            while (calcPad.clientWidth*0.96 < place.clientWidth) {
+                CurrentFontSize--;
+                place.style.fontSize = CurrentFontSize + 'px';
+            }
+        } // end of checkWidthOverflow()
+    
+        checkWidthOverflow(currentOperandText, InputFontSize);
+        checkWidthOverflow(previousOperandText, PrevFontSize);
+        checkWidthOverflow(result, ResultFontSize);
+    };
+
+    this.clearAll = function () {
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined;
+        this.resulting = '';
+    };
+
+    this.computePercent = function () {
+        if (!this.currentOperand) return;
+        this.previousOperandText.innerText = `${this.expression}${this.currentOperand}%`;
+        this.currentOperandText.innerText = '';
+        this.x = eval(
+            parseFloat(this.expression) +
+                this.operation +
+                (parseFloat(this.expression) / 100) *
+                    parseFloat(this.currentOperand)
+        );
+
+        this.result.innerText = this.x;
+        this.currentOperand = '';
+    };
+
+    this.appendNumber = function (number) {
+        this.resulting = '';
+        this.result.innerText = this.resulting;
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        if (this.currentOperand === '0' && this.currentOperand.length > 0)
+            return;
+        if (this.currentOperand.length <= maxDigits) {
+            this.currentOperand += number.toString();
         }
+    };
+
+    this.reverse = function () {
+        if (this.currentOperand.includes('-') ) {
+            this.currentOperand = this.currentOperand.replace("-", "");
+        } else if (this.currentOperand) {
+            this.currentOperand = '-' + this.currentOperand;
+        };
+        this.currentOperandText.innerText = this.currentOperand;
     }
 
-    displayResult.innerHTML = result;
+    this.chooseOperation = function (operation) {
+        if (!this.currentOperand) return;
+        if (this.previousOperand) this.compute()
 
-    function checkWidthOverflow(place, fz) { // check overflow of some field & make font a little bit smaller
-        place.style.fontSize = fz + 'px';
-        let CurrentFontSize = fz;
-        while (calcPad.clientWidth*0.97 < place.clientWidth) {
-            CurrentFontSize--;
-            place.style.fontSize = CurrentFontSize + 'px';
-        }
-    } // end of checkWidthOverflow()
+        this.operation = operation;
+        this.previousOperand = this.currentOperand + this.operation;
+        this.currentOperand = '';
+        this.expression = this.previousOperand;
+    };
 
-    checkWidthOverflow(displayOperation, OperationFontSize);
-    checkWidthOverflow(displayResult, ResultFontSize);
-} // end of showDisplay()
+    this.compute = function () {
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current)) return;
 
-calcPad.addEventListener('click', event => {
+        if (this.operation == '+') computation = prev + current;
+        if (this.operation == '-') computation = prev - current;
+        if (this.operation == '×') computation = prev * current;
+        if (this.operation == '÷') computation = prev / current;
+
+        this.resulting = computation;
+        this.operation = undefined;
+        this.previousOperand = '';
+    };
+
+    this.updateDisplay = function () {
+        this.currentOperandText.innerText = this.currentOperand;
+        this.previousOperandText.innerText = this.previousOperand;
+        this.result.innerText = this.resulting;
+    };
+}
+//#endregion
+
+setInterval(() => {
+    if (!currentOperandText.innerText) currentOperandText.innerText = '0';   
+}, 66);
+
+window.addEventListener('resize', () => { location.reload() } ); // reload page on resize/rotate
+
+let calculator = new Calculator( previousOperandText, currentOperandText, result );
+
+//#region Keyboard Listener
+document.addEventListener('keydown', event => { // keyboard listener
+    if (event.key == +event.key || event.key == '.' ) { // press digit or . button on keyboard
+        calculator.appendNumber( event.key );
+        calculator.updateDisplay();
+
+    } else if (event.key.match(/[\*\+/-]/)) { // press +-/* button on keyboard
+        calculator.chooseOperation(event.key);
+        calculator.updateDisplay();
+    
+    } else if (event.key == '=') { // press = button on keyboard
+        calculator.compute();
+        calculator.showResult();
+    }
+} ); 
+//#endregion
+
+//#region (mouse) Clicks Listener
+calcPad.addEventListener('click', event => { // mouse clicks listener
     let eventValue = event.target.value,
-        eventClass = event.target.className,
         eventBGcolor = event.target.style.background;
 
-    if (eventClass.includes('button')) { // changes BG color of pressed button
-        event.target.style.background = '#aaa';
+    if (event.target.className.includes('button')) { // changes BG color of pressed button for 99 ms
+        event.target.style.background = '#bbb';
         setTimeout(() => event.target.style.background = eventBGcolor, 99);
+    } else return;
+
+    if (eventValue == +eventValue || eventValue == '.') { // click digit or .
+        calculator.appendNumber(eventValue);
+        calculator.updateDisplay();
+
+    } else if (event.target.className.includes('colorOper')) {  // click operation button
+        calculator.chooseOperation(eventValue);
+        calculator.updateDisplay();
+
+    } else if (eventValue == 'C') { // click C button
+        calculator.clearAll();
+        calculator.updateDisplay();
+
+    } else if (eventValue == '%') { // click % button
+        calculator.computePercent();
+        
+    } else if (eventValue == '±') { // click Plus/minus button
+        calculator.reverse();
+        calculator.updateDisplay();
+
+    } else if (eventValue == '=') { // click = button
+        calculator.compute();
+        calculator.showResult();
     }
-
-    if (eventValue == +eventValue) { // press digit
-        if (operationLastPressed && !result) {
-        inputPrev = input;
-        input = '';
-        operationLastPressed = false;
-        }
-        if (input.length < 11) {
-            input += +eventValue;
-            showDisplay();
-        }
-        if (!input) {displayInput.innerHTML = '0';}
-        else {displayInput.innerHTML = input;}
-
-    } else if (eventClass.includes('colorOper')) {  // press operation button
-        if (result && !operationLastPressed) {
-            inputPrev = result;
-            showDisplay();
-        }
-        if (eventValue === '÷') {operation = 'divide'; operationValue = "/";}
-        if (eventValue === '×') {operation = 'multiply'; operationValue = "*";}
-        if (eventValue === '+') {operation = 'plus'; operationValue = "+";}
-        if (eventValue === '-') {operation = 'minus'; operationValue = "-";}
-        operationLastPressed = true;
-        if (!result) inputPrev = input;
-        showDisplay();
-
-    } else if (eventValue == 'C') { // press C button
-        input = '';
-        inputPrev = '';
-        operation = '';
-        operationValue = '';
-        result = '';
-        showDisplay();
-
-    } else if (eventValue == '.') { // press Dot button
-        if (!input.split('').find(symb => symb == '.')) {
-            if (input.length < 10 && input.length) input += '.';
-            showDisplay();
-        }
-
-    } else if (eventValue == '±') { // press Plus/minus button
-        if (input) {
-            if (input.toString().charAt(0) !== "-" ) input = '-' + input.toString();
-            else input = input.toString().slice(1);
-        }
-        showDisplay();
-
-    } else if (eventValue == '=') { // press = button
-       if (operation == 'divide') {result = +inputPrev / +input;}
-        if (operation == 'multiply') {result = +inputPrev * +input;}
-        if (operation == 'plus') {result = +inputPrev + +input;}
-        if (operation == 'minus') {result = +inputPrev - +input;}
-        showDisplay();
-        input = '';
-        inputPrev = result;
-        operation = '';
-        operationValue = '';
-        operationLastPressed = true;
-        displayInput.innerHTML = '0';
-    }
-
-} )
+} );
+ //#endregion
