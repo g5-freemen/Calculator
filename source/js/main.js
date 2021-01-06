@@ -19,7 +19,7 @@ function Calculator(previousOperandText, currentOperandText, result) {
     this.previousOperand = '';
     this.operation = undefined;
     this.resulting = '';
-    this.exspression = '';
+    this.expression = '';
 
     this.showResult = function () {
         if (!this.currentOperand) return;
@@ -36,7 +36,7 @@ function Calculator(previousOperandText, currentOperandText, result) {
                 place.style.fontSize = CurrentFontSize + 'px';
             }
         } // end of checkWidthOverflow()
-    
+
         checkWidthOverflow(currentOperandText, InputFontSize);
         checkWidthOverflow(previousOperandText, PrevFontSize);
         checkWidthOverflow(result, ResultFontSize);
@@ -68,9 +68,9 @@ function Calculator(previousOperandText, currentOperandText, result) {
         this.resulting = '';
         this.result.innerText = this.resulting;
         if (number === '.' && this.currentOperand.includes('.')) return;
-        if (this.currentOperand === '0' && this.currentOperand.length > 0)
-            return;
+        if (this.currentOperand === '0' && number === '0') return;
         if (this.currentOperand.length <= maxDigits) {
+            if (number === '.' && !this.currentOperand) { this.currentOperand = '0' }
             this.currentOperand += number.toString();
         }
     };
@@ -139,6 +139,10 @@ document.addEventListener('keydown', event => { // keyboard listener
     } else if (event.key == '=') { // press = button on keyboard
         calculator.compute();
         calculator.showResult();
+    
+    } else if (event.key == 'Escape') { // press ESC button on keyboard
+        calculator.clearAll();
+        calculator.updateDisplay();
     }
 } ); 
 //#endregion
