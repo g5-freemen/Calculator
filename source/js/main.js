@@ -90,7 +90,6 @@ function Calculator(previousOperandText, currentOperandText, result) {
         if (this.previousOperand) calculator.compute();
 
         if (result.innerText) {
-            alert(result.innerText)
             this.previousOperand = result.innerText + operation;
             this.previousOperandText.innerText = this.previousOperand;
         } else {
