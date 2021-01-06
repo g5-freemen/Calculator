@@ -1,7 +1,7 @@
-const result = document.querySelector('.calc-display--result');
-const previousOperandText = document.querySelector('.calc-display--operation');
-const currentOperandText = document.querySelector('.calc-display--input');
-const calcPad = document.querySelector('.calc-pad');
+let result = document.querySelector('.calc-display--result'),
+    previousOperandText = document.querySelector('.calc-display--operation'),
+    currentOperandText = document.querySelector('.calc-display--input'),
+    calcPad = document.querySelector('.calc-pad');
 
 const ResultFontSize = parseFloat(document.defaultView.getComputedStyle(result).fontSize);
 const PrevFontSize = parseFloat(document.defaultView.getComputedStyle(previousOperandText).fontSize);
@@ -85,11 +85,18 @@ function Calculator(previousOperandText, currentOperandText, result) {
     }
 
     this.chooseOperation = function (operation) {
-        if (!this.currentOperand) return;
-        if (this.previousOperand) this.compute()
+        if (!this.currentOperand) this.currentOperand = '0';
 
+        if (this.previousOperand) calculator.compute();
+
+        if (result.innerText) {
+            alert(result.innerText)
+            this.previousOperand = result.innerText + operation;
+            this.previousOperandText.innerText = this.previousOperand;
+        } else {
+            this.previousOperand = this.currentOperand + operation;
+        }
         this.operation = operation;
-        this.previousOperand = this.currentOperand + this.operation;
         this.currentOperand = '';
         this.expression = this.previousOperand;
     };
