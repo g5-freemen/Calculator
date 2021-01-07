@@ -1,4 +1,4 @@
-# [Calculator](https://g5-freemen.github.io/Calculator/source/)
+# [Calculator](https://g5-freemen.github.io/Calculator/dist/)
 
 ***
 
