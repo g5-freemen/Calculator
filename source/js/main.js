@@ -131,7 +131,7 @@ function Calculator(previousOperandText, currentOperandText, result) {
     };
 }
 
-function highlightBtn(place) {
+function highlightBtn(place) { // highlights pressed button for 99ms
     if (place) {
     let eventBGcolor = place.style.background;
     place.style.background = '#bbb';
