@@ -28,15 +28,6 @@ function Calculator(previousOperandText, currentOperandText, result) {
         this.result.innerText = this.resulting;
         this.currentOperand = '';
 
-        function checkWidthOverflow(place, fz) { // check overflow & make font smaller if needed
-            place.style.fontSize = fz + 'px';
-            let CurrentFontSize = fz;
-            while (calcPad.clientWidth*0.96 < place.clientWidth) {
-                CurrentFontSize--;
-                place.style.fontSize = CurrentFontSize + 'px';
-            }
-        } // end of checkWidthOverflow()
-
         checkWidthOverflow(currentOperandText, InputFontSize);
         checkWidthOverflow(previousOperandText, PrevFontSize);
         checkWidthOverflow(result, ResultFontSize);
@@ -64,6 +55,8 @@ function Calculator(previousOperandText, currentOperandText, result) {
         );
         this.result.innerText = this.x;
         this.currentOperand = '';
+        checkWidthOverflow(result, ResultFontSize);
+        checkWidthOverflow(previousOperandText, PrevFontSize);
     };
 
     this.appendNumber = function (number) {
@@ -137,6 +130,15 @@ function highlightBtn(place) { // highlights pressed button for 99ms
     place.style.background = '#bbb';
     setTimeout(() => place.style.background = eventBGcolor, 99);
 } }
+
+function checkWidthOverflow(place, fz) { // check overflow & make font smaller if needed
+    place.style.fontSize = fz + 'px';
+    let CurrentFontSize = fz;
+    while (calcPad.clientWidth*0.96 < place.clientWidth) {
+        CurrentFontSize--;
+        place.style.fontSize = CurrentFontSize + 'px';
+    }
+}
 
 //#endregion
 
