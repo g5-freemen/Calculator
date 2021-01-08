@@ -363,6 +363,7 @@ template {
   top: 0;
   bottom: 0;
   width: 100%;
+  min-width: 280px;
   font-family: 'Oswald';
   background: #F0F0F3;
   background-image: url(../../img/dots-rectangle.svg), url(../../img/dots-rectangle.svg);
