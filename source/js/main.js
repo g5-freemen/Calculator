@@ -3,11 +3,11 @@ let result = document.querySelector('.calc-display--result'),
     currentOperandText = document.querySelector('.calc-display--input'),
     calcPad = document.querySelector('.calc-pad');
 
+const maxDigits = 10;
+
 const ResultFontSize = parseFloat(document.defaultView.getComputedStyle(result).fontSize);
 const PrevFontSize = parseFloat(document.defaultView.getComputedStyle(previousOperandText).fontSize);
 const InputFontSize = parseFloat(document.defaultView.getComputedStyle(currentOperandText).fontSize);
-
-const maxDigits = 10;
 
 //#region Functions
 function Calculator(previousOperandText, currentOperandText, result) {
@@ -146,7 +146,7 @@ setInterval(() => { // shows 0 if empty input string
     if (!currentOperandText.innerText) currentOperandText.innerText = '0';   
 }, 66);
 
-window.addEventListener('resize', () => { location.reload() } ); // reload page on resize/rotate
+window.addEventListener('resize', () => location.reload() ); // reload page on resize/rotate
 
 let calculator = new Calculator( previousOperandText, currentOperandText, result );
 
